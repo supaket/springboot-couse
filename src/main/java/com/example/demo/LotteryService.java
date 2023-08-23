@@ -15,13 +15,13 @@ public class LotteryService {
 @Component
 class MainComponent {
 
-    public LotteryService service;
-    public MainComponent(LotteryService service){
-       this.service = service;
+    public LotteryService service; //A
+    public MainComponent(LotteryService service){ //B
+       this.service = service; //C
     }
 
     public void sayHelloFunction() {
         System.out.println("Hello");
-        service.lotto();
+        service.lotto(); //D
     }
 }
