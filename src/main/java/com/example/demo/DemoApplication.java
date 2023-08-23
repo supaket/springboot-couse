@@ -18,9 +18,9 @@ public class DemoApplication {
 //		for (String bean : beans) {
 //			out.println(bean);
 //		}
-//
-		int beanCount = context.getBeanDefinitionCount();
-		out.println(beanCount);
+////
+//		int beanCount = context.getBeanDefinitionCount();
+//		out.println(beanCount);
 
 		MainComponent main = context.getBean(MainComponent.class);
 		main.sayHelloFunction();

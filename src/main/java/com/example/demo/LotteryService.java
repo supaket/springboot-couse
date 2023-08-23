@@ -16,6 +16,9 @@ public class LotteryService {
 class MainComponent {
 
     public LotteryService service;
+    public MainComponent(LotteryService service){
+       this.service = service;
+    }
 
     public void sayHelloFunction() {
         System.out.println("Hello");
