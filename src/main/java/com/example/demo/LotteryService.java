@@ -12,6 +12,7 @@ public class LotteryService {
     }
 }
 
+@Component
 class WinnerPrice {
     public String yourWinnerPrice() {
         return "$1,000,000";
@@ -22,10 +23,12 @@ class WinnerPrice {
 class MainComponent {
 
     public LotteryService service; //A
+
     public WinnerPrice price;
 
-    public MainComponent(LotteryService service){ //B
+    public MainComponent(LotteryService service, WinnerPrice winnerPrice){ //B
        this.service = service; //C
+       this.price =  winnerPrice;
     }
 
     public void sayHelloFunction() {
