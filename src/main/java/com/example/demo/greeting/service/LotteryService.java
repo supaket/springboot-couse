@@ -1,6 +1,5 @@
-package com.example.demo;
+package com.example.demo.greeting.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Random;
