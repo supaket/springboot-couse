@@ -12,13 +12,6 @@ public class LotteryService {
 }
 
 @Component
-class WinnerPrice {
-    public String yourWinnerPrice() {
-        return "$1,000,000";
-    }
-}
-
-@Component
 class MainComponent {
 
     public LotteryService service; //A
