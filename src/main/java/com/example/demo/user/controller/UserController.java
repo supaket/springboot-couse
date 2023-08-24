@@ -2,8 +2,9 @@ package com.example.demo.user.controller;
 
 import com.example.demo.user.domain.UserRequest;
 import com.example.demo.user.domain.UserResponse;
+import com.example.demo.user.singleton.UserStore;
 import org.apache.catalina.User;
-import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -12,48 +13,22 @@ import java.util.List;
 @RestController
 public class UserController {
 
+    @Autowired
+    UserStore userStore;
+
     @GetMapping("/users")
     public List<UserResponse> users() {
-
-        UserResponse user1 = new UserResponse();
-        user1.setId("1");
-        user1.setName("user1");
-
-        UserResponse user2 = new UserResponse();
-        user2.setId("2");
-        user2.setName("user2");
-
-        List<UserResponse> userList = new ArrayList();
-        userList.add(user1);
-        userList.add(user2);
-
-        return userList;
+        return userStore.userList();
     }
 
     @GetMapping("/users/{id}")
     public UserResponse getUser(@PathVariable String id){
-
-        UserResponse user1 = new UserResponse();
-        user1.setId("1");
-        user1.setName("user1");
-
-        UserResponse user2 = new UserResponse();
-        user2.setId("2");
-        user2.setName("user2");
-
-        List<UserResponse> userList = new ArrayList();
-        userList.add(user1);
-        userList.add(user2);
-
-        //create a response user with assign the id
         UserResponse userResponse = new UserResponse();
-
-
         //search a user by compare given id with user in list
-        userList.forEach(u -> {
-            if(u.getId().equals(id)){
+        userStore.userList().forEach(u -> {
+            if(u.getId() == Integer.parseInt(id)){
                 // if found then assign name and id
-                 userResponse.setId(id);
+                 userResponse.setId(Integer.parseInt(id));
                  userResponse.setName(u.getName());
             }
         });
@@ -62,7 +37,44 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public void createUser(@RequestBody UserRequest userRequest){
-        System.out.println("user request with " + userRequest.getName());
+    public UserResponse createUser(@RequestBody UserRequest userRequest){
+        UserResponse newUser= new UserResponse();
+        newUser.setName(userRequest.getName());
+        int currentId = userStore.userList().size();
+        newUser.setId(currentId+1);
+        userStore.userList().add(newUser);
+
+        return newUser;
+    }
+
+    @PutMapping("/users/{id}")
+    public UserResponse updateUser(@RequestBody UserRequest userRequest,
+                            @PathVariable String id){
+
+        UserResponse userResponse = new UserResponse();
+        //search a user by compare given id with user in list
+        userStore.userList().forEach(user -> {
+            if(user.getId() == Integer.parseInt(id)){
+
+                // if found then assign name and id
+                userResponse.setId(Integer.parseInt(id));
+                userResponse.setName(userRequest.getName());
+
+                // Update found user with new name from request
+                user.setName(userRequest.getName());
+            }
+        });
+
+        return userResponse;
+    }
+
+
+    @DeleteMapping("/users/{id}")
+    public String deleteUser(@PathVariable int id){
+        UserResponse user = new UserResponse();
+        user.setId(id);
+
+        userStore.userList().remove(user);
+        return "user id " + id + " deleted";
     }
 }
