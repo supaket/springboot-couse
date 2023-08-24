@@ -3,18 +3,19 @@ package com.example.demo.user.controller;
 import com.example.demo.user.domain.UserRequest;
 import com.example.demo.user.domain.UserResponse;
 import com.example.demo.user.singleton.UserStore;
-import org.apache.catalina.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class UserController {
 
-    @Autowired
+    final
     UserStore userStore;
+
+    public UserController(UserStore userStore) {
+        this.userStore = userStore;
+    }
 
     @GetMapping("/users")
     public List<UserResponse> users() {
