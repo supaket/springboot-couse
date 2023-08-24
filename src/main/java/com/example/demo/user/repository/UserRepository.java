@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository extends CrudRepository<UserEntity, Long> {
-    Optional<UserEntity> findById(int id);
+    Optional<UserEntity> findById(Long id);
     List<UserEntity> findAll();
 
 }

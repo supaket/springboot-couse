@@ -2,6 +2,8 @@ package com.example.demo.user.controller;
 
 import com.example.demo.user.domain.UserDomain;
 import com.example.demo.user.domain.UserResponse;
+import com.example.demo.user.gateway.PostGateway;
+import com.example.demo.user.gateway.PostResponse;
 import com.example.demo.user.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,9 +14,12 @@ import java.util.List;
 public class UserController {
 
     final UserService userService;
+    final PostGateway postGateway;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService,
+                          PostGateway postGateway) {
         this.userService = userService;
+        this.postGateway = postGateway;
     }
 
     @GetMapping("/users")
@@ -35,10 +40,14 @@ public class UserController {
     public UserResponse getUser(@PathVariable int id){
         UserResponse userResponse = new UserResponse();
 
+        System.out.println("reload");
         UserDomain userDomain = userService.findById(id);
         if(userDomain != null) {
             userResponse.setId(userDomain.getId());
             userResponse.setName(userDomain.getName());
+
+            PostResponse post = postGateway.getPostById(id).get();
+            userResponse.setTodo(post.getTitle()+ "addded");
         }
         return userResponse;
     }

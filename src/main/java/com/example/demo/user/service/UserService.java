@@ -21,7 +21,7 @@ public class UserService {
     }
 
     public UserDomain findById(int id) {
-        Optional<UserEntity> userEntity = userRepo.findById(id);
+        Optional<UserEntity> userEntity = userRepo.findById(Long.valueOf(id));
         if(userEntity.isPresent()) {
             return new UserDomain(
                     userEntity.get().getId().intValue(),
