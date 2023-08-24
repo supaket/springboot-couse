@@ -2,6 +2,7 @@ package com.example.demo.user.controller;
 
 import com.example.demo.user.domain.UserRequest;
 import com.example.demo.user.domain.UserResponse;
+import com.example.demo.user.repository.UserRepository;
 import com.example.demo.user.singleton.UserStore;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,11 +11,13 @@ import java.util.List;
 @RestController
 public class UserController {
 
-    final
-    UserStore userStore;
+    final UserStore userStore;
+    final UserRepository userRepo;
 
-    public UserController(UserStore userStore) {
+    public UserController(UserStore userStore,
+                          UserRepository userRepo) {
         this.userStore = userStore;
+        this.userRepo = userRepo;
     }
 
     @GetMapping("/users")
@@ -24,6 +27,9 @@ public class UserController {
 
     @GetMapping("/users/{id}")
     public UserResponse getUser(@PathVariable String id){
+
+        userRepo.findById(Long.parseLong(id));
+
         UserResponse userResponse = new UserResponse();
         //search a user by compare given id with user in list
         userStore.userList().forEach(u -> {
