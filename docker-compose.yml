@@ -1,0 +1,13 @@
+services:
+  postgres:
+    image: postgres:15.3-alpine
+    container_name: postgresql-1
+    volumes:
+      - ./postgresdata:/data/db
+    ports:
+      - 5432:5432
+
+    environment:
+      - POSTGRES_DB=pgdb
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_PASSWORD=postgres
