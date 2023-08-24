@@ -1,6 +1,11 @@
 package com.example.demo.user.domain;
 
+//POJO
 public class UserResponse {
+
+    String id;
+    String name;
+
     public String getName() {
         return name;
     }
@@ -9,5 +14,13 @@ public class UserResponse {
         this.name = name;
     }
 
-    String name;
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+
 }
