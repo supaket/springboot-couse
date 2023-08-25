@@ -1,58 +1,55 @@
 package com.example.fizzbuzz;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Random;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FizzBuzzTest {
+    //Arrange
+    FizzBuzz fizzBuzz;
+    Random random = new Random();
+
+    @BeforeEach
+    public void setup(){
+        fizzBuzz  = new FizzBuzz();
+    }
 
     @Test
     public void sayFizzWhenDivideByThree(){
         // AAA pattern
-
-        //Arrange
-        FizzBuzz fizzBuzz = new FizzBuzz();
+        // Multiply by 3 to ensure divisibility
+        int divisibleByThree = 3 * (random.nextInt(10) +1) ;
 
         //Act
-        String result = fizzBuzz.say(3);
+        String result = fizzBuzz.say(divisibleByThree);
         //Assert
         assertEquals("Fizz", result);
-
-        //Act
-        String result2 = fizzBuzz.say(6);
-        //Assert
-        assertEquals("Fizz", result2);
-
     }
 
     @Test
     public void sayBuzzWhenDivideByFive(){
         // AAA pattern
-
-        //Arrange
-        FizzBuzz fizzBuzz = new FizzBuzz();
+        // Multiply by 3,5 to ensure divisibility
+        int divisibleByFive = 5 * (random.nextInt(10) +1) ;
 
         //Act
-        String result = fizzBuzz.say(5);
+        String result = fizzBuzz.say(divisibleByFive);
 
         //Assert
         assertEquals("Buzz", result);
-
-        //Act
-        String result2 = fizzBuzz.say(10);
-
-        //Assert
-        assertEquals("Buzz", result2);
     }
 
     @Test
     public void sayFizzBuzzWhenBothDivideByThreeAndFive(){
         // AAA pattern
-
-        //Arrange
-        FizzBuzz fizzBuzz = new FizzBuzz();
+        // Multiply by 3 to ensure divisibility
+        int divisibleByThreeAndFive = 3 * 5 * (random.nextInt(10) + 1);
 
         //Act
-        String result = fizzBuzz.say(15);
+        String result = fizzBuzz.say(divisibleByThreeAndFive);
 
         //Assert
         assertEquals("FizzBuzz", result);
