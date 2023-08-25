@@ -3,15 +3,15 @@ package com.example.testdouble;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.parallel.Execution;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Random;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class TestDoubleShowcase {
@@ -45,12 +45,12 @@ public class TestDoubleShowcase {
         spyRandom1.nextInt(10);
 
         //Assert
-        Mockito.verify(spyRandom1, times(1)).nextInt(10);
+        verify(spyRandom1, times(1)).nextInt(10);
 
     }
 
     @Test
-    public void shouldCallRandomWithInteger(){
+    public void shouldCallRandomWithSpecificValue(){
         //Arrange
         //Act
         Random random1 = new Random();
@@ -61,8 +61,15 @@ public class TestDoubleShowcase {
         spyRandom1.nextInt(10);
 
         //Assert
-        //Mockito.verify(spyRandom1, ).nextInt(10);
 
+        // Capture the argument using ArgumentCaptor
+        ArgumentCaptor<Integer> argumentCaptor = ArgumentCaptor.forClass(Integer.class);
+        verify(spyRandom1).nextInt(argumentCaptor.capture());
+
+        int capturedValue = argumentCaptor.getValue();
+
+        // Check the captured argument
+        assertEquals(10 , capturedValue);
     }
 
 }

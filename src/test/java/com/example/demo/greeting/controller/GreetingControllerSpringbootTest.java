@@ -19,7 +19,7 @@ class GreetingControllerSpringbootTest {
     public void shouldReturnGreetBackWhenCallHello(){
        String result = testRestTemplate.getForObject("/hello/user1",String.class);
 
-       assertEquals(result, "Hello user1");
+       assertEquals(result, "Hello user1 $1,000,000");
 
     }
 

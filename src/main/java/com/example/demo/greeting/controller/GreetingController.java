@@ -18,6 +18,6 @@ public class GreetingController {
 
     @GetMapping("/hello/{name}")
     public String greeting(@PathVariable("name") String name){
-        return "Hello "+ name;
+        return "Hello "+ name +" "+ service.yourWinnerPrice();
     }
 }
