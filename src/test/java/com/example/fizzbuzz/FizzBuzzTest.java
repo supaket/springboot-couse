@@ -1,5 +1,6 @@
 package com.example.fizzbuzz;
 
+import com.example.demo.fizzbuzz.FizzBuzz;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
