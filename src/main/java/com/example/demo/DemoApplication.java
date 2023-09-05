@@ -7,8 +7,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
-import javax.annotation.PostConstruct;
-
 
 @SpringBootApplication
 public class DemoApplication {
@@ -19,20 +17,22 @@ public class DemoApplication {
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+//		SpringApplication.run(DemoApplication.class, args);
 
-//		ConfigurableApplicationContext context = SpringApplication.run(DemoApplication.class, args);
-//
-////		String[] beans = context.getBeanDefinitionNames();
-////		for (String bean : beans) {
-////			out.println(bean);
-////		}
-//////
-////		int beanCount = context.getBeanDefinitionCount();
-////		out.println(beanCount);
-//
-//		MainComponent main = context.getBean(MainComponent.class);
-//		main.sayHelloFunction();
+		ConfigurableApplicationContext context = SpringApplication.run(DemoApplication.class, args);
+
+		String[] beans = context.getBeanDefinitionNames();
+		System.out.println("-------BEAN NAMES------");
+		for (String bean : beans) {
+			System.out.println(bean);
+		}
+		System.out.println("-------------");
+
+		int beanCount = context.getBeanDefinitionCount();
+		System.out.println(beanCount);
+
+		MainComponent2 main = context.getBean(MainComponent2.class);
+		main.sayHelloFunction();
 	}
 
 }
